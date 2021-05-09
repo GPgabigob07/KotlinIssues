@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0C91D6</color>
+    <color name="colorPrimaryDark">#806EE3</color>
+    <color name="colorAccent">#DF6F65</color>
+    <color name="colorAccent2">#CF5F9F</color>
+
+    <color name="textColorNormal">#202200</color>
+    <color name="textColorNormalInv">#CACACA</color>
+    <color name="grayed">#80706665</color>
+
+    <color name="openGreen">#3BE48E</color>
+    <color name="closeRed">#E43B54</color>
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_error">Issue title not provided!</string>
+    <string name="default_error">Something went wrong :(</string>
+    <string name="issue_opened_by">Issue opened by:</string>
+    <string name="issue_details">Issue Details</string>
+    <string name="see_on_github">See on GitHub</string>
+    <string name="last_update">"Last Update: "</string>
+    <string name="issue_transition_id">issue_transition_$1%s</string>
+    <string name="issue_detail_transition">issue_detail</string>
+</resources>

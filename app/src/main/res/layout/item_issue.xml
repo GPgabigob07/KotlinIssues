@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="issue"
+            type="com.nta.githubkotlinissueapp.api.models.response.IssueModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="@{@string/issue_transition_id(String.valueOf(issue.id))}"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/status"
+                style="@style/OnlyBottomCardCorners"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="@{issue.displayState}"
+                    android:textSize="12sp"
+                    tools:text="Some status" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:maxLength="120"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="4dp"
+                android:text="@{issue.displayTitle ?? @string/title_error}"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/ic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status"
+                tools:text="Lorem impsum dolor sit amet. Lorem impsum dolor sit amet. Lorem impsum dolor sit amet. Lorem impsum dolor sit amet. Lorem impsum dolor sit amet. Lorem impsum dolor sit amet. " />
+
+            <ImageView
+                android:id="@+id/ic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
