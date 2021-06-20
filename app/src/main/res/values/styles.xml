@@ -15,10 +15,22 @@
         <item name="shapeAppearanceOverlay">@style/ShapeOverlay_CardView_OnlyBottom</item>
     </style>
 
-
     <style name="ShapeOverlay_CardView_OnlyBottom" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomRight">16dp</item>
+    </style>
+
+    <style name="OnlyLeftCardCorners" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_OnlyLeft</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_OnlyLeft" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
     </style>
 
 </resources>

@@ -13,7 +13,14 @@ class IssuesViewModel(
     private val repo: IssueRepo
 ) : ViewModel() {
 
-    var inDetails: IssueModel? = null
+    private val _currentInDetails = MutableLiveData<IssueModel>();
+
+    val currentInDetails : LiveData<IssueModel>
+    get() = _currentInDetails
+
+    var inDetails: IssueModel?
+    set(v) = _currentInDetails.postValue(v)
+    get() = _currentInDetails.value;
 
     private val _issueList = MutableLiveData<RxHandler.RxResult<List<IssueModel>>>()
     val issueList: MutableLiveData<RxHandler.RxResult<List<IssueModel>>>

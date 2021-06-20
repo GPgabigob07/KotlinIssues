@@ -1,5 +1,6 @@
 package com.nta.githubkotlinissueapp.ui.fragment.home
 
+import android.content.res.Configuration
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,8 +22,10 @@ import com.nta.githubkotlinissueapp.api.RxHandler.RxResult.Success
 import com.nta.githubkotlinissueapp.api.models.response.IssueModel
 import com.nta.githubkotlinissueapp.databinding.FragmentHomeBinding
 import com.nta.githubkotlinissueapp.ui.adapter.IssuesAdapter
+import com.nta.githubkotlinissueapp.ui.fragment.issueDetails.IssueDetailsFragment
 import com.nta.githubkotlinissueapp.ui.viewmodel.IssuesViewModel
 import com.nta.githubkotlinissueapp.utils.dpToPX
+import com.nta.githubkotlinissueapp.utils.isLandscape
 import com.nta.githubkotlinissueapp.utils.toast
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -56,7 +60,9 @@ class HomeFragment : Fragment() {
 
         with(binder) {
 
-            issues.adapter = adapter
+            issues.adapter = adapter.apply {
+                isLandscape = resources.configuration.isLandscape
+            }
 
             issues.itemAnimator?.apply {
                 moveDuration = 500
@@ -93,18 +99,38 @@ class HomeFragment : Fragment() {
                 rxResult.throwable.printStackTrace()
                 toast(getString(R.string.default_error))
             }
+            else -> {
+            }
         }
     }
 
-    private fun openDetails(card: MaterialCardView, issueModel: IssueModel) {
+    private fun openDetails(card: MaterialCardView, issueModel: IssueModel, opened: Boolean) {
         vm.inDetails = issueModel
-        val extras = FragmentNavigatorExtras(card to getString(R.string.issue_detail_transition))
-        findNavController().navigate(
-            R.id.action_navigation_home_to_issueDetailsFragment,
-            null,
-            null,
-            extras
-        )
+        if (resources.configuration.isLandscape) {
+            childFragmentManager.commit {
+                if (opened) {
+                    addSharedElement(card, getString(R.string.issue_detail_transition))
+                    replace(binder.detailedView!!.id, IssueDetailsFragment::class.java, null, null)
+                } else {
+                    val frag = childFragmentManager.findFragmentById(binder.detailedView!!.id)
+                    frag?.let { remove(it) }
+                }
+            }
+        } else {
+            val extras =
+                FragmentNavigatorExtras(card to getString(R.string.issue_detail_transition))
+            findNavController().navigate(
+                R.id.action_navigation_home_to_issueDetailsFragment,
+                null,
+                null,
+                extras
+            )
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        adapter.isLandscape = newConfig.isLandscape;
     }
 
 }
